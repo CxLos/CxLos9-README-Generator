@@ -1,4 +1,4 @@
-// node modules
+// Modules
 const inquirer = require('inquirer');
 const fs = require('fs');
 
@@ -15,114 +15,142 @@ inquirer.prompt(
         {
             type: 'input',
             message: "Please provide a description of your project",
-            name: 'Description',
+            name: 'description',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'input',
             message: "Please provide table of contents",
-            name: 'Table of Contents',
+            name: 'tableOfContents',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'input',
             message: "How do you install this project?",
-            name: 'Installation',
+            name: 'installation',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'input',
             message: "How do you use this project?",
-            name: 'Usage',
+            name: 'usage',
+            validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
+        },
+        {
+            type: 'input',
+            message: "Were there any other collaborators?",
+            name: 'credits',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'list',
             message: "Please provide a License",
-            name: 'License',
+            name: 'license',
             choices: ['MIT License', 'GPL License', 'N/A'],
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'input',
-            message: "Were there any contributions?",
-            name: 'Contributions',
+            message: "Any badges you would like to place?",
+            name: 'badges',
+            validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
+        },
+        {
+            type: 'input',
+            message: "List any features here:",
+            name: 'features',
+            validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
+        },
+        {
+            type: 'input',
+            message: "Would you like any future contributions?",
+            name: 'contributions',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'input',
             message: "Please write any tests for this project",
-            name: 'Tests',
+            name: 'tests',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
         {
             type: 'input',
-            message: "Any other questions?",
-            name: 'Questions',
+            message: "Please attach link to video:",
+            name: 'video',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         },
-        {
-            type: 'input',
-            message: "Enter GitHub Username",
-            name: 'Git',
-            validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
-        }
     ]
+
 ).then(({
     title,
     description,
     tableOfContents,
     installation,
     usage,
+    credits,
     license,
+    badges,
+    features,
     contributions,
     tests,
-    questions,
-    Git,
-})=>{
+    video,
+
+}) => {
     // template
     const template =`# ${title}
 
-    *[Description][#Description]
-    *[Table of Contents][#TableOfContents]
-    *[Installation][#Installation]
-    *[Usage][#Usage]
-    *[License][#License]
-    *[Contributions][#Contributions]
-    *[Tests][#Tests]
-    *[Questions][#Questions]
-    *[Git][#Git]
+    * [Description](#description)
+    * [Table of Contents](#tableOfContents)
+    * [Installation](#installation)
+    * [Usage](#usage)
+    * [Credits](#credits)
+    * [License](#license)
+    * [Badges](#badges)
+    * [Features](#features)
+    * [Contributions](#contributions)
+    * [Tests](#tests)
+    * [Video](#video)
 
-    ## Description
-    ${description}
-    ## Contributions
-    ${tableOfContents}
-    ## Installation
-    ${installation}
-    ## Usage
-    ${usage}
-    ## License
-    ${license}
-    ## Contributions
-    ${contributions}
-    ## Tests
-    ${tests}
-    ## Questions
-    ${questions}
-    ## Git
-    ${Git}
+## Description
+${description}
 
-    #Contact
-    *GitHub: ${cxlos}
-    *LinkedIn: ${link}
-    *E-mail: ${email}`;
+## Table of Contents
+${tableOfContents}
+
+## Installation
+${installation}
+
+## Usage
+${usage}
+
+## Credits
+${credits}
+
+## License
+${license}
+
+## Badges
+${badges}
+
+## Features
+${features}
+
+## Contributions
+${contributions}
+
+## Tests
+${tests}
+
+## Video
+${video}`;
 
     nuFile(title, template);
 }
 );
+
 //function
-function nuFile(fileName, template){
-    fs.writeFile(`./${fileName,toLowerCase().split(' ').join('')}.md`,data,(err)=>{
+function nuFile(fileName, data){
+    fs.writeFile(`./${fileName.toLowerCase().split(' ').join('')}.md`,data,(err)=>{
         if (err){
             console.log(err)
         }
