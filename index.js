@@ -60,6 +60,12 @@ inquirer.prompt(
             message: "Any other questions?",
             name: 'Questions',
             validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
+        },
+        {
+            type: 'input',
+            message: "Enter GitHub Username",
+            name: 'Git',
+            validate: (value)=>{ if(value){return true} else {return 'Please enter a valied entry'}}
         }
     ]
 ).then(({
@@ -72,6 +78,7 @@ inquirer.prompt(
     contributions,
     tests,
     questions,
+    Git,
 })=>{
     // template
     const template =`# ${title}
@@ -84,6 +91,7 @@ inquirer.prompt(
     *[Contributions][#Contributions]
     *[Tests][#Tests]
     *[Questions][#Questions]
+    *[Git][#Git]
 
     ## Description
     ${description}
@@ -101,9 +109,11 @@ inquirer.prompt(
     ${tests}
     ## Questions
     ${questions}
+    ## Git
+    ${Git}
 
     #Contact
-    *GitHub: ${CxLos}
+    *GitHub: ${cxlos}
     *LinkedIn: ${link}
     *E-mail: ${email}`;
 
